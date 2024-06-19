@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dog2kojmq5tg0"]
+[gd_scene load_steps=5 format=3 uid="uid://dog2kojmq5tg0"]
 
 [ext_resource type="Script" path="res://GameBootstraper.cs" id="1_bfo11"]
 [ext_resource type="PackedScene" uid="uid://dscg88y1rp75a" path="res://3dObjects/starter_geometry.glb" id="2_ha7p7"]
+[ext_resource type="PackedScene" uid="uid://dj6sl8rohahtg" path="res://GameWorld/Customer/Customer.tscn" id="3_sj56m"]
+[ext_resource type="PackedScene" uid="uid://dwwwljyuq0ti4" path="res://GameWorld/FoodStand/FoodStand.tscn" id="4_5oawb"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_bfo11")
 
 [node name="starter_geometry" parent="." instance=ExtResource("2_ha7p7")]
+visible = false
 
 [node name="DevDebugCanvas" type="CanvasLayer" parent="."]
 visible = false
@@ -23,3 +26,15 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 text = "[b]bold[i]bold italic[/i][/b][i]italic[/i]"
+
+[node name="DebugCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+visible = false
+
+[node name="Customer" parent="." instance=ExtResource("3_sj56m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 0)
+MovementVector = Vector3(-1, 0, 0)
+Speed = 5.0
+
+[node name="FoodStand" parent="." instance=ExtResource("4_5oawb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
