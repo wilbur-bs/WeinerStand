@@ -11,8 +11,9 @@ public partial class GameState : Node
 	{
 		State = new Dictionary<string, string>
         {
+			{ "Batch", "0"},
             { "Money", "0" },
-			{ "Sausages", "100" }
+			{ "Sausages", "100" },
         };
 
 		GD.Print(GetStateString());

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://btj4ycn0l2xj7"]
+
+[node name="UiList" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

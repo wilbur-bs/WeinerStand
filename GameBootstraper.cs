@@ -60,18 +60,23 @@ public partial class GameBootstraper : Node
 			Name = "EventMenu"
         };
 		uiContainer.AddChild(menu);
+        menu.SetTitleText("Welcome!");
 
         UiController uiController = new UiController();
         AddChild(uiController);
         uiController.State = gameState;
         uiController.Menu = menu;
 
-        // temp
-        menu.SetTitleText("Welcome!");
+        InteractionMachine interactionMachine = new InteractionMachine();
+        AddChild(interactionMachine);
+        interactionMachine.State = gameState;
+
         Button button = new() {
-			Text = "Follow Path"
+			Text = "Make Batch"
 		};
+        button.Pressed += () => interactionMachine.Process("makeBatch");
 		menu.AddOptionButton(button);
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
