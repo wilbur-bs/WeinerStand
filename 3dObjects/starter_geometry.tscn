@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy8l5c5bkuktq"]
+
+[ext_resource type="PackedScene" uid="uid://dscg88y1rp75a" path="res://3dObjects/starter_geometry.glb" id="1_s7dub"]
+
+[node name="starter_geometry" instance=ExtResource("1_s7dub")]

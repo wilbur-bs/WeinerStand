@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dog2kojmq5tg0"]
+
+[ext_resource type="Script" path="res://GameBootstraper.cs" id="1_bfo11"]
+[ext_resource type="PackedScene" uid="uid://dscg88y1rp75a" path="res://3dObjects/starter_geometry.glb" id="2_ha7p7"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_bfo11")
+
+[node name="starter_geometry" parent="." instance=ExtResource("2_ha7p7")]
+
+[node name="DevDebugCanvas" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DevDebugCanvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DevDebugCanvas/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "[b]bold[i]bold italic[/i][/b][i]italic[/i]"
