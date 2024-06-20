@@ -19,6 +19,10 @@ public partial class InteractionMachine : Node
                 State.State["Sausages"] = (State.State["Sausages"].ToInt() - 10).ToString();
                 State.State["Batch"] = "10";
                 break;
+            case "sale":
+                State.State["Money"] = (State.State["Money"].ToInt() + 10).ToString();
+                State.State["Batch"] = (State.State["Batch"].ToInt() - 1).ToString();
+                break;
             default:
                 break;
         }

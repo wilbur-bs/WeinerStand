@@ -3,7 +3,8 @@ using System;
 
 public partial class GameBootstraper : Node
 {
-
+    [Export]
+    public GameWorldController gameWorldController;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -77,6 +78,8 @@ public partial class GameBootstraper : Node
         button.Pressed += () => interactionMachine.Process("makeBatch");
 		menu.AddOptionButton(button);
 
+        gameWorldController.interactionMachine = interactionMachine;
+        gameWorldController.Initialize();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
