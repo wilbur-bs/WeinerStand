@@ -9,6 +9,7 @@ public partial class GameBootstraper : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+        // Game State
         GameState gameState = new GameState();
 		AddChild(gameState);
 
@@ -24,6 +25,15 @@ public partial class GameBootstraper : Node
         };
         AddChild(freshnessTimer);
 
+        InteractionMachine interactionMachine = new InteractionMachine();
+        AddChild(interactionMachine);
+        interactionMachine.State = gameState;
+
+        ProgressionMachine progressionMachine = new ProgressionMachine();
+        progressionMachine.roundTimer = roundTimer;
+        progressionMachine.Initialize();
+
+        // Game World
         Camera3D camera = new Camera3D();
         AddChild(camera);
         camera.Position = new Vector3(0,0,15);
@@ -32,8 +42,10 @@ public partial class GameBootstraper : Node
         AddChild(light);
         light.Position = new Vector3(0,12,15);
 
-        CanvasLayer canvas = new CanvasLayer();
-		AddChild(canvas);
+
+        // In-Round Ui
+        CanvasLayer inRoundCanvas = new CanvasLayer();
+		AddChild(inRoundCanvas);
 
         VBoxContainer uiContainer = new VBoxContainer()
         {
@@ -42,8 +54,10 @@ public partial class GameBootstraper : Node
             SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
 			Name = "UiContainer"
         };
-        canvas.AddChild(uiContainer);
+        inRoundCanvas.AddChild(uiContainer);
 
+
+        // Ui top
         VBoxContainer topContainer = new VBoxContainer()
         {
             LayoutMode = 1,
@@ -73,6 +87,8 @@ public partial class GameBootstraper : Node
         };
         topContainer.AddChild(topPadding);
         
+
+        // Ui bottom
 		EventScreen menu = new EventScreen()
         {
             LayoutMode = 1,
@@ -83,6 +99,8 @@ public partial class GameBootstraper : Node
 		uiContainer.AddChild(menu);
         menu.SetTitleText("Welcome!");
 
+
+        // Ui controller
         UiController uiController = new UiController();
         AddChild(uiController);
         uiController.State = gameState;
@@ -90,23 +108,47 @@ public partial class GameBootstraper : Node
         uiController.RoundTimer = roundTimer;
         uiController.ProgressBar = roundBar;
 
-        InteractionMachine interactionMachine = new InteractionMachine();
-        AddChild(interactionMachine);
-        interactionMachine.State = gameState;
-
         Button button = new() {
 			Text = "Make Batch"
 		};
         button.Pressed += () => interactionMachine.Process("makeBatch");
 		menu.AddOptionButton(button);
 
+
+        // Post-Round Ui
+        CanvasLayer postRoundCanvas = new CanvasLayer();
+		AddChild(postRoundCanvas);
+
+        /*VBoxContainer uiContainer = new VBoxContainer()
+        {
+            LayoutMode = 1,
+			AnchorsPreset = 15,
+            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
+			Name = "UiContainer"
+        };*/
+        EventScreen postMenu = new EventScreen()
+        {
+            LayoutMode = 1,
+			AnchorsPreset = 15,
+            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
+			Name = "PostMenu"
+        };
+        postRoundCanvas.AddChild(postMenu);
+        postMenu.SetTitleText("Welcome to Post!");
+
+        button = new() {
+			Text = "Next Day"
+		};
+        button.Pressed += () => progressionMachine.NewRound();
+		postMenu.AddOptionButton(button);
+
+
+        // Init functions
         gameWorldController.interactionMachine = interactionMachine;
         gameWorldController.Initialize();
 
-        ProgressionMachine progressionMachine = new ProgressionMachine();
-        progressionMachine.roundTimer = roundTimer;
-        progressionMachine.Initialize();
-
+        progressionMachine.inRoundMenu = inRoundCanvas;
+        progressionMachine.postRoundMenu = postRoundCanvas;
         progressionMachine.NewRound();
 	}
 
