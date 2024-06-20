@@ -19,10 +19,33 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="DevDebugCanvas/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DevDebugCanvas/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="DevDebugCanvas/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+value = 50.0
+show_percentage = false
+
+[node name="Control" type="Control" parent="DevDebugCanvas/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="DevDebugCanvas/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DevDebugCanvas/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "[b]bold[i]bold italic[/i][/b][i]italic[/i]"
+
+[node name="Button" type="Button" parent="DevDebugCanvas/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "snakes"
 
 [node name="DebugCam" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)

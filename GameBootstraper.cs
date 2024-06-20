@@ -12,17 +12,17 @@ public partial class GameBootstraper : Node
         GameState gameState = new GameState();
 		AddChild(gameState);
 
-        Timer newTimer = new Timer
+        Timer roundTimer = new Timer
         {
             Name = "RoundTimer"
         };
-        AddChild(newTimer);
+        AddChild(roundTimer);
 
-        newTimer = new Timer
+        Timer freshnessTimer = new Timer
         {
             Name = "FreshnessTimer"
         };
-        AddChild(newTimer);
+        AddChild(freshnessTimer);
 
         Camera3D camera = new Camera3D();
         AddChild(camera);
@@ -44,6 +44,26 @@ public partial class GameBootstraper : Node
         };
         canvas.AddChild(uiContainer);
 
+        VBoxContainer topContainer = new VBoxContainer()
+        {
+            LayoutMode = 1,
+			AnchorsPreset = 15,
+            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
+			Name = "TopContainer"
+        };
+        uiContainer.AddChild(topContainer);
+
+        ProgressBar roundBar = new ProgressBar()
+        {
+            LayoutMode = 1,
+			AnchorsPreset = 15,
+            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
+            SizeFlagsStretchRatio = 0.1f,
+            ShowPercentage = false,
+			Name = "RoundProgress"
+        };
+        topContainer.AddChild(roundBar);
+
         Control topPadding = new Control()
         {
             LayoutMode = 1,
@@ -51,7 +71,7 @@ public partial class GameBootstraper : Node
             SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
 			Name = "TopPadding"
         };
-        uiContainer.AddChild(topPadding);
+        topContainer.AddChild(topPadding);
         
 		EventScreen menu = new EventScreen()
         {
@@ -67,6 +87,8 @@ public partial class GameBootstraper : Node
         AddChild(uiController);
         uiController.State = gameState;
         uiController.Menu = menu;
+        uiController.RoundTimer = roundTimer;
+        uiController.ProgressBar = roundBar;
 
         InteractionMachine interactionMachine = new InteractionMachine();
         AddChild(interactionMachine);
@@ -80,6 +102,12 @@ public partial class GameBootstraper : Node
 
         gameWorldController.interactionMachine = interactionMachine;
         gameWorldController.Initialize();
+
+        ProgressionMachine progressionMachine = new ProgressionMachine();
+        progressionMachine.roundTimer = roundTimer;
+        progressionMachine.Initialize();
+
+        progressionMachine.NewRound();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
