@@ -46,9 +46,17 @@ text = "[b]bold[i]bold italic[/i][/b][i]italic[/i]"
 layout_mode = 2
 text = "snakes"
 
-[node name="DebugCam" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
-visible = false
-
 [node name="FoodStand" parent="." instance=ExtResource("4_5oawb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
+
+[node name="LightsCamera" type="Node3D" parent="."]
+
+[node name="CameraMain" type="Camera3D" parent="LightsCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+
+[node name="TopLight" type="DirectionalLight3D" parent="LightsCamera"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="ForwardLight" type="DirectionalLight3D" parent="LightsCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+light_energy = 0.5

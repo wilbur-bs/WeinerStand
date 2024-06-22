@@ -86,7 +86,7 @@ public partial class ProgressionMachine : Node
 				gameState.State.Add("Bread", "100");
                 break;
 			case "freshness":
-				GD.Print("Not implemented");
+				gameState.State.Add("Freshness", "0");
                 break;
 			default:
 				break;

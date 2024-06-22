@@ -10,9 +10,6 @@ public partial class GameBootstraper : Node
 	public override void _Ready()
 	{
         // Game State
-        GameState gameState = new GameState();
-		AddChild(gameState);
-
         Timer roundTimer = new Timer
         {
             Name = "RoundTimer"
@@ -21,19 +18,28 @@ public partial class GameBootstraper : Node
 
         Timer freshnessTimer = new Timer
         {
+            Autostart = false,
+            WaitTime = 10,
             Name = "FreshnessTimer"
         };
+        freshnessTimer.Timeout += () => freshnessTimer.Stop();
         AddChild(freshnessTimer);
+
+        GameState gameState = new GameState();
+		AddChild(gameState);
+        gameState.FreshnessTimer = freshnessTimer;
 
         InteractionMachine interactionMachine = new InteractionMachine();
         AddChild(interactionMachine);
         interactionMachine.State = gameState;
+        interactionMachine.freshnessTimer = freshnessTimer;
 
         ProgressionMachine progressionMachine = new ProgressionMachine();
         progressionMachine.roundTimer = roundTimer;
         progressionMachine.Initialize();
 
         // Game World
+        /*
         Camera3D camera = new Camera3D();
         AddChild(camera);
         camera.Position = new Vector3(0,0,15);
@@ -41,7 +47,7 @@ public partial class GameBootstraper : Node
         DirectionalLight3D light = new DirectionalLight3D();
         AddChild(light);
         light.Position = new Vector3(0,12,15);
-
+        */
         GameWorldMachine gameWorldMachine = new GameWorldMachine();
         AddChild(gameWorldMachine);
 

@@ -8,6 +8,8 @@ public partial class UiController : Node
 	public Timer RoundTimer;
 	public ProgressBar ProgressBar;
 
+	private string currentDescription;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -22,6 +24,7 @@ public partial class UiController : Node
 
 	private void RefreshUi()
 	{
+		currentDescription = "Resources: \n" + State.GetStateString()  + "\n";
 		Menu.SetDescriptionText("Resources: \n" + State.GetStateString()  + "\n");
 		ProgressBar.Value = 100*(RoundTimer.TimeLeft/RoundTimer.WaitTime);
 	}
