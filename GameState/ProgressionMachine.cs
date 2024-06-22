@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class ProgressionMachine : Node
 {
@@ -7,23 +8,28 @@ public partial class ProgressionMachine : Node
 	public float RoundTime = 10;
 
 	public Timer roundTimer;
+	public GameState gameState;
 	public CanvasLayer inRoundMenu;
 	public CanvasLayer postRoundMenu;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-
-	}
+	// resource sets
+	private List<string> resourceSet1;
+	private List<string> resourceSet2;
+	private Random random;
 
 	public void Initialize()
 	{
 		roundTimer.Timeout += () => EndRound();
+
+		resourceSet1 = new List<string>() {
+			"bread", "freshness"
+		};
+
+		resourceSet2 = new List<string>() {
+			"cleanliness", "condiments", "propane"
+		};
+
+		random = new Random();
 	}
 
 	public void NewRound()
@@ -40,8 +46,43 @@ public partial class ProgressionMachine : Node
 		roundTimer.Stop();
 		inRoundMenu.Visible = false;
 		postRoundMenu.Visible = true;
+		ApplyNewRoundRules(GetNexResource());
 		GD.Print("Round End");
 	}
 
+	private string GetNexResource()
+	{
+		string nextResource;
+		if(resourceSet1.Count > 0)
+		{
+			nextResource = resourceSet1[random.Next(resourceSet1.Count)];
+			resourceSet1.Remove(nextResource);
+			return nextResource;
+		}
+		else if(resourceSet2.Count > 0)
+		{
+			nextResource = resourceSet2[random.Next(resourceSet2.Count)];
+			resourceSet2.Remove(nextResource);
+			return nextResource;
+		}
+		else
+		{
+			return "";
+		}
+	}
 
+	private void ApplyNewRoundRules(string newRound)
+	{
+		switch(newRound)
+        {
+			case "bread":
+				gameState.State.Add("Bread", "100");
+                break;
+			case "freshness":
+				GD.Print("Not implemented");
+                break;
+			default:
+				break;
+		}
+	}
 }

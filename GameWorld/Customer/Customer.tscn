@@ -8,6 +8,8 @@ size = Vector3(1.5, 1.5, 1.5)
 
 [node name="Customer" type="Node3D"]
 script = ExtResource("1_c7x4x")
+MovementVector = Vector3(-1, 0, 0)
+Speed = 5.0
 
 [node name="Area3D" type="Area3D" parent="."]
 

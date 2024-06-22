@@ -42,6 +42,8 @@ public partial class GameBootstraper : Node
         AddChild(light);
         light.Position = new Vector3(0,12,15);
 
+        GameWorldMachine gameWorldMachine = new GameWorldMachine();
+        AddChild(gameWorldMachine);
 
         // In-Round Ui
         CanvasLayer inRoundCanvas = new CanvasLayer();
@@ -147,6 +149,9 @@ public partial class GameBootstraper : Node
         gameWorldController.interactionMachine = interactionMachine;
         gameWorldController.Initialize();
 
+        gameWorldMachine.Initialize();
+
+        progressionMachine.gameState = gameState;
         progressionMachine.inRoundMenu = inRoundCanvas;
         progressionMachine.postRoundMenu = postRoundCanvas;
         progressionMachine.NewRound();
