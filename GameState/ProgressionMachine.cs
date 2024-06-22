@@ -5,11 +5,13 @@ using System.Collections.Generic;
 public partial class ProgressionMachine : Node
 {
 	[Export]
-	public float RoundTime = 10;
+	public float RoundTime = 5;
 
 	public Timer roundTimer;
 	public GameState gameState;
 	public GameWorldMachine gameWorldMachine;
+
+	public UiController uiController;
 	public CanvasLayer inRoundMenu;
 	public CanvasLayer postRoundMenu;
 
@@ -40,8 +42,10 @@ public partial class ProgressionMachine : Node
 
 		gameWorldMachine.StartSpawning();
 
-		inRoundMenu.Visible = true;
-		postRoundMenu.Visible = false;
+		//inRoundMenu.Visible = true;
+		//postRoundMenu.Visible = false;
+		uiController.SwitchToInRoundUi();
+
 		GD.Print("Round Start");
 	}
 
@@ -51,9 +55,13 @@ public partial class ProgressionMachine : Node
 
 		gameWorldMachine.StopSpawning();
 
-		inRoundMenu.Visible = false;
-		postRoundMenu.Visible = true;
-		ApplyNewRoundRules(GetNexResource());
+		//inRoundMenu.Visible = false;
+		//postRoundMenu.Visible = true;
+		string resource = GetNexResource();
+		GD.Print("Next Resource: " + resource);
+		ApplyNewRoundRules(resource);
+		uiController.SwitchToPostRoundUi(resource);
+
 		GD.Print("Round End");
 	}
 

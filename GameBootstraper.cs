@@ -36,7 +36,12 @@ public partial class GameBootstraper : Node
 
         ProgressionMachine progressionMachine = new ProgressionMachine();
         progressionMachine.roundTimer = roundTimer;
+        progressionMachine.gameState = gameState;
+        AddChild(progressionMachine);
         progressionMachine.Initialize();
+
+        DialougeMachine dialougeMachine = new();
+        AddChild(dialougeMachine);
 
         // Game World
         /*
@@ -107,22 +112,6 @@ public partial class GameBootstraper : Node
 		uiContainer.AddChild(menu);
         menu.SetTitleText("Welcome!");
 
-
-        // Ui controller
-        UiController uiController = new UiController();
-        AddChild(uiController);
-        uiController.State = gameState;
-        uiController.Menu = menu;
-        uiController.RoundTimer = roundTimer;
-        uiController.ProgressBar = roundBar;
-
-        Button button = new() {
-			Text = "Make Batch"
-		};
-        button.Pressed += () => interactionMachine.Process("makeBatch");
-		menu.AddOptionButton(button);
-
-
         // Post-Round Ui
         CanvasLayer postRoundCanvas = new CanvasLayer();
 		AddChild(postRoundCanvas);
@@ -144,12 +133,25 @@ public partial class GameBootstraper : Node
         postRoundCanvas.AddChild(postMenu);
         postMenu.SetTitleText("Welcome to Post!");
 
-        button = new() {
-			Text = "Next Day"
-		};
-        button.Pressed += () => progressionMachine.NewRound();
-		postMenu.AddOptionButton(button);
+        // Ui controller
+        UiController uiController = new UiController();
+        AddChild(uiController);
+        uiController.State = gameState;
+        uiController.Menu = menu;
+        uiController.RoundTimer = roundTimer;
+        uiController.ProgressBar = roundBar;
+        uiController.inRoundMenu = inRoundCanvas;
+        uiController.postRoundMenu = postRoundCanvas;
+        uiController.PostRoundScreen = postMenu;
+        uiController.DialougeMachine = dialougeMachine;
+        uiController.progressionMachine = progressionMachine;
 
+        // Buttons
+        Button button = new() {
+			Text = "Make Batch"
+		};
+        button.Pressed += () => interactionMachine.Process("makeBatch");
+		menu.AddOptionButton(button);
 
         // Init functions
         gameWorldController.interactionMachine = interactionMachine;
@@ -157,10 +159,10 @@ public partial class GameBootstraper : Node
 
         gameWorldMachine.Initialize();
 
-        progressionMachine.gameState = gameState;
+        //progressionMachine.inRoundMenu = inRoundCanvas;
+        //progressionMachine.postRoundMenu = postRoundCanvas;
         progressionMachine.gameWorldMachine = gameWorldMachine;
-        progressionMachine.inRoundMenu = inRoundCanvas;
-        progressionMachine.postRoundMenu = postRoundCanvas;
+        progressionMachine.uiController = uiController;
         progressionMachine.NewRound();
 	}
 
