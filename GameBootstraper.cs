@@ -152,6 +152,7 @@ public partial class GameBootstraper : Node
         gameWorldMachine.Initialize();
 
         progressionMachine.gameState = gameState;
+        progressionMachine.gameWorldMachine = gameWorldMachine;
         progressionMachine.inRoundMenu = inRoundCanvas;
         progressionMachine.postRoundMenu = postRoundCanvas;
         progressionMachine.NewRound();

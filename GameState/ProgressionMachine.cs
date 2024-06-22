@@ -9,6 +9,7 @@ public partial class ProgressionMachine : Node
 
 	public Timer roundTimer;
 	public GameState gameState;
+	public GameWorldMachine gameWorldMachine;
 	public CanvasLayer inRoundMenu;
 	public CanvasLayer postRoundMenu;
 
@@ -36,6 +37,9 @@ public partial class ProgressionMachine : Node
 	{
 		roundTimer.WaitTime = RoundTime;
 		roundTimer.Start();
+
+		gameWorldMachine.StartSpawning();
+
 		inRoundMenu.Visible = true;
 		postRoundMenu.Visible = false;
 		GD.Print("Round Start");
@@ -44,6 +48,9 @@ public partial class ProgressionMachine : Node
 	public void EndRound()
 	{
 		roundTimer.Stop();
+
+		gameWorldMachine.StopSpawning();
+
 		inRoundMenu.Visible = false;
 		postRoundMenu.Visible = true;
 		ApplyNewRoundRules(GetNexResource());

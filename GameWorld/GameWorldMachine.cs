@@ -26,8 +26,18 @@ public partial class GameWorldMachine : Node
 
 		NewWait();
 	}
+
+	public void StopSpawning()
+	{
+		waitTimer.Stop();
+	}
+
+	public void StartSpawning()
+	{
+		NewWait();
+	}
 	
-	public void SpawnCustomer()
+	private void SpawnCustomer()
 	{
 		Node3D newCustomer = (Node3D)customerScene.Instantiate();
 		newCustomer.Position = customerPosition;
@@ -35,7 +45,7 @@ public partial class GameWorldMachine : Node
 		gameWorld.AddChild(newCustomer);
 	}
 
-	public void NewWait()
+	private void NewWait()
 	{
 		waitTimer.WaitTime = random.Next(1,3);
 		waitTimer.Start();
