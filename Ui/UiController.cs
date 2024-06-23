@@ -6,8 +6,9 @@ public partial class UiController : Node
 	public GameState State;
 	public DialougeMachine DialougeMachine;
 	public ProgressionMachine progressionMachine;
+	public InteractionMachine interactionMachine;
 
-	private bool inRound;
+	private bool inRound = false;
 
 	// in round menu
 	public EventScreen Menu;
@@ -24,14 +25,6 @@ public partial class UiController : Node
 	private string currentDialogueString;
 	private string currentTitleString;
 
-
-	//private string currentDescription;
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-
-	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -62,7 +55,14 @@ public partial class UiController : Node
 	private void SetPostRoundButtons()
 	{
 		PostRoundScreen.ClearButtons();
-		if(currentDialogueQuery != "default_0")
+		if(currentDialogueQuery == "end_0")
+		{
+			Button button = new() {
+				Text = "Aw man"
+			};
+			PostRoundScreen.AddOptionButton(button);
+		}
+		else if(currentDialogueQuery != "default_0")
 		{
 			Button button = new() {
 				Text = "Got it"
@@ -73,6 +73,23 @@ public partial class UiController : Node
 		else
 		{
 			Button button = new() {
+				Text = "Buy 20 Sausages (-20 Money)"
+			};
+			button.Pressed += () => interactionMachine.Process("buySausages");
+			button.Pressed += () => RefreshGamestateDialogue();
+			PostRoundScreen.AddOptionButton(button);
+
+			if(State.State.ContainsKey("Bread"))
+			{
+				button = new() {
+					Text = "Buy 20 Bread (-20 Money)"
+				};
+				button.Pressed += () => interactionMachine.Process("buyBread");
+				button.Pressed += () => RefreshGamestateDialogue();
+				PostRoundScreen.AddOptionButton(button);
+			}
+
+			button = new() {
 				Text = "Next Day"
 			};
 			button.Pressed += () => progressionMachine.NewRound();
@@ -83,7 +100,6 @@ public partial class UiController : Node
 	private void NavigateDialogue()
 	{
 		GD.Print("QueryString: " + currentDialogueQuery);
-
 		if(DialougeMachine.Descriptions.ContainsKey(currentDialogueQuery))
 		{
 			currentTitleString = DialougeMachine
@@ -94,11 +110,13 @@ public partial class UiController : Node
 		else
 		{
 			currentDialogueQuery = "default_0";
+			GD.Print("QueryString: " + currentDialogueQuery);
+
+
 			currentTitleString = DialougeMachine
 				.Titles["default"];
 				
-			currentDialogueString = DialougeMachine.Descriptions["default_0"] 
-				+ "Resources: \n" + State.GetStateString()  + "\n";
+			RefreshGamestateDialogue();
 		}
 
 		SetPostRoundButtons();
@@ -108,6 +126,17 @@ public partial class UiController : Node
 			currentDialogueIndex += 1;
 			currentDialogueQuery = currentDialogueQuery.Substring(0, currentDialogueQuery.Length-2)
 				+ "_" + currentDialogueIndex.ToString();
+		}
+	}
+
+	private void RefreshGamestateDialogue()
+	{
+		currentDialogueString = DialougeMachine.Descriptions["default_0"];
+		currentDialogueString += "- Money: " + State.State["Money"] + "\n";
+		currentDialogueString += "- Sausages: " + State.State["Sausages"] + "\n";
+		if(State.State.ContainsKey("Bread"))
+		{
+			currentDialogueString += "- Bread: " + State.State["Bread"] + "\n";
 		}
 	}
 

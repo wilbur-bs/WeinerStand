@@ -38,7 +38,6 @@ public partial class GameBootstraper : Node
         progressionMachine.roundTimer = roundTimer;
         progressionMachine.gameState = gameState;
         AddChild(progressionMachine);
-        progressionMachine.Initialize();
 
         DialougeMachine dialougeMachine = new();
         AddChild(dialougeMachine);
@@ -125,19 +124,10 @@ public partial class GameBootstraper : Node
         CanvasLayer postRoundCanvas = new CanvasLayer();
 		AddChild(postRoundCanvas);
 
-        /*VBoxContainer uiContainer = new VBoxContainer()
-        {
-            LayoutMode = 1,
-			AnchorsPreset = 15,
-            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
-			Name = "UiContainer"
-        };*/
+        
         EventScreen postMenu = new EventScreen()
         {
             LayoutMode = 1,
-			//AnchorsPreset = 11,
-            //SizeFlagsHorizontal = Godot.Control.SizeFlags.ExpandFill,
-            //SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
             AnchorLeft = 0.5f,
             AnchorRight = 1f,
             AnchorTop = 0f,
@@ -159,6 +149,7 @@ public partial class GameBootstraper : Node
         uiController.PostRoundScreen = postMenu;
         uiController.DialougeMachine = dialougeMachine;
         uiController.progressionMachine = progressionMachine;
+        uiController.interactionMachine = interactionMachine;
 
         // Buttons
         Button button = new() {
@@ -176,7 +167,7 @@ public partial class GameBootstraper : Node
 
         progressionMachine.gameWorldMachine = gameWorldMachine;
         progressionMachine.uiController = uiController;
-        progressionMachine.NewRound();
+        progressionMachine.Initialize();
 
         interactionMachine.gwText = gameWorldText;
         #endregion

@@ -6,6 +6,7 @@ public partial class InteractionMachine : Node
 	public GameState State;
     public Timer freshnessTimer;
     public GameWorldText gwText;
+    public int baseSalePrice = 5;
     
     private Random random;
 
@@ -18,6 +19,7 @@ public partial class InteractionMachine : Node
 
 	public void Process(string input)
     {
+        GD.Print("Interaction: " + input);
         string[] command = input.Split(" "); 
         ApplyInteractionLogic(command);
     }
@@ -34,6 +36,16 @@ public partial class InteractionMachine : Node
             case "sale":
                 SaleInteraction();
                 break;
+            case "buySausages":
+                State.State["Sausages"] = (State.State["Sausages"].ToInt() + 20).ToString();
+                State.State["Money"] = (State.State["Money"].ToInt() - 20).ToString();
+                gwText.SetMessage("+20 sausages\n-20 money");
+                break;
+            case "buyBread":
+                State.State["Bread"] = (State.State["Bread"].ToInt() + 20).ToString();
+                State.State["Money"] = (State.State["Money"].ToInt() - 20).ToString();
+                gwText.SetMessage("+20 bread\n-20 money");
+                break;
             default:
                 break;
         }
@@ -46,7 +58,7 @@ public partial class InteractionMachine : Node
         if(State.State["Batch"].ToInt() >= 1)
         {
             interactionMessage = "Hotdog sold!\n";
-            int salePrice = 10;
+            int salePrice = baseSalePrice;
             if(State.State.ContainsKey("Bread"))
             {
                 int usedBread = 1;
@@ -57,7 +69,6 @@ public partial class InteractionMachine : Node
                 State.State["Bread"] = (State.State["Bread"].ToInt() - usedBread).ToString();
                 
                 interactionMessage += "-" + usedBread + " bread\n";
-                GD.Print("Used bread " + usedBread);
             }
 
             if(State.State.ContainsKey("Freshness"))
@@ -65,11 +76,9 @@ public partial class InteractionMachine : Node
                 int saleFreshness = (int)freshnessTimer.TimeLeft/2;
                 salePrice += saleFreshness;
                 interactionMessage += "+" + saleFreshness + " in tips\n";
-                GD.Print("Sale freshness " + saleFreshness);
             }
 
             State.State["Money"] = (State.State["Money"].ToInt() + salePrice).ToString();
-            GD.Print("Sale price " + salePrice);
 
             State.State["Batch"] = (State.State["Batch"].ToInt() - 1).ToString();
 

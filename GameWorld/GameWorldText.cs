@@ -13,7 +13,7 @@ public partial class GameWorldText : Label3D
 		OutlineSize = 0;
 		HorizontalAlignment = HorizontalAlignment.Left;
 		VerticalAlignment = VerticalAlignment.Bottom;
-		Text = "- Initial line 1\n- Initial line 2";
+		Text = "Welcome!";
 
 		currentColor = Modulate;
 	}

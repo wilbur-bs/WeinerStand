@@ -33,6 +33,10 @@ public partial class ProgressionMachine : Node
 		};
 
 		random = new Random();
+
+		// Initialize round
+		gameWorldMachine.StopSpawning();
+		uiController.SwitchToPostRoundUi("start");
 	}
 
 	public void NewRound()
@@ -41,9 +45,6 @@ public partial class ProgressionMachine : Node
 		roundTimer.Start();
 
 		gameWorldMachine.StartSpawning();
-
-		//inRoundMenu.Visible = true;
-		//postRoundMenu.Visible = false;
 		uiController.SwitchToInRoundUi();
 
 		GD.Print("Round Start");
@@ -51,18 +52,20 @@ public partial class ProgressionMachine : Node
 
 	public void EndRound()
 	{
+		GD.Print("Round End");
 		roundTimer.Stop();
 
 		gameWorldMachine.StopSpawning();
+		gameState.State["Batch"] = "0";
+		gameState.State["Money"] = (gameState.State["Money"].ToInt() - 100).ToString();
+		if(EndGameCheck() != true)
+		{
+			string resource = GetNexResource();
+			ApplyNewRoundRules(resource);
+			uiController.SwitchToPostRoundUi(resource);
 
-		//inRoundMenu.Visible = false;
-		//postRoundMenu.Visible = true;
-		string resource = GetNexResource();
-		GD.Print("Next Resource: " + resource);
-		ApplyNewRoundRules(resource);
-		uiController.SwitchToPostRoundUi(resource);
-
-		GD.Print("Round End");
+			GD.Print("Next Resource: " + resource);
+		}
 	}
 
 	private string GetNexResource()
@@ -96,8 +99,27 @@ public partial class ProgressionMachine : Node
 			case "freshness":
 				gameState.State.Add("Freshness", "0");
                 break;
+			case "cleanliness":
+				gameState.State.Add("Cleanliness", "100");
+                break;
+			case "condiments":
+				gameState.State.Add("Condiments", "100");
+				break;
+			case "propane":
+				gameState.State.Add("Propane", "100");
+				break;
 			default:
 				break;
 		}
+	}
+
+	private bool EndGameCheck()
+	{
+		if(gameState.State["Money"].ToInt() <= 0)
+		{
+			uiController.SwitchToPostRoundUi("end");
+			return true;
+		}
+		return false;
 	}
 }
