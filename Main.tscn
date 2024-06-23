@@ -1,7 +1,43 @@
-[gd_scene load_steps=3 format=3 uid="uid://dog2kojmq5tg0"]
+[gd_scene load_steps=8 format=3 uid="uid://dog2kojmq5tg0"]
 
 [ext_resource type="Script" path="res://GameBootstraper.cs" id="1_bfo11"]
 [ext_resource type="PackedScene" uid="uid://dwwwljyuq0ti4" path="res://GameWorld/FoodStand/FoodStand.tscn" id="4_5oawb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e03c1"]
+
+[sub_resource type="FontFile" id="FontFile_u6nx4"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="Theme" id="Theme_ep410"]
+default_font = SubResource("FontFile_u6nx4")
+Button/styles/blue = SubResource("StyleBoxTexture_e03c1")
+
+[sub_resource type="FontFile" id="FontFile_uum2l"]
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
+cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/50/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0rpsu"]
+font = SubResource("FontFile_uum2l")
+font_size = 50
+outline_color = Color(1, 0, 0, 1)
+shadow_color = Color(0, 1, 1, 0)
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("gameWorldController")]
 script = ExtResource("1_bfo11")
@@ -11,6 +47,7 @@ gameWorldController = NodePath("FoodStand")
 visible = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DevDebugCanvas"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -46,17 +83,32 @@ text = "[b]bold[i]bold italic[/i][/b][i]italic[/i]"
 layout_mode = 2
 text = "snakes"
 
+[node name="Button" type="Button" parent="DevDebugCanvas"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "button"
+
+[node name="Label" type="Label" parent="DevDebugCanvas"]
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+theme = SubResource("Theme_ep410")
+text = "label"
+label_settings = SubResource("LabelSettings_0rpsu")
+
 [node name="FoodStand" parent="." instance=ExtResource("4_5oawb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
 
 [node name="LightsCamera" type="Node3D" parent="."]
 
 [node name="CameraMain" type="Camera3D" parent="LightsCamera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 25)
+keep_aspect = 0
 
 [node name="TopLight" type="DirectionalLight3D" parent="LightsCamera"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
 
 [node name="ForwardLight" type="DirectionalLight3D" parent="LightsCamera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 light_energy = 0.5

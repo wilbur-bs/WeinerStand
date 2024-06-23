@@ -9,7 +9,7 @@ public partial class GameBootstraper : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-        // Game State
+        #region "Game State"
         Timer roundTimer = new Timer
         {
             Name = "RoundTimer"
@@ -43,7 +43,9 @@ public partial class GameBootstraper : Node
         DialougeMachine dialougeMachine = new();
         AddChild(dialougeMachine);
 
-        // Game World
+        #endregion
+
+        #region "Game World"
         /*
         Camera3D camera = new Camera3D();
         AddChild(camera);
@@ -56,6 +58,13 @@ public partial class GameBootstraper : Node
         GameWorldMachine gameWorldMachine = new GameWorldMachine();
         AddChild(gameWorldMachine);
 
+        GameWorldText gameWorldText = new();
+        gameWorldText.Position = new Vector3(-10, 2, 0);
+        AddChild(gameWorldText);
+
+        #endregion
+
+        #region "Ui"
         // In-Round Ui
         CanvasLayer inRoundCanvas = new CanvasLayer();
 		AddChild(inRoundCanvas);
@@ -126,8 +135,13 @@ public partial class GameBootstraper : Node
         EventScreen postMenu = new EventScreen()
         {
             LayoutMode = 1,
-			AnchorsPreset = 15,
-            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
+			//AnchorsPreset = 11,
+            //SizeFlagsHorizontal = Godot.Control.SizeFlags.ExpandFill,
+            //SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
+            AnchorLeft = 0.5f,
+            AnchorRight = 1f,
+            AnchorTop = 0f,
+            AnchorBottom = 1f,
 			Name = "PostMenu"
         };
         postRoundCanvas.AddChild(postMenu);
@@ -152,22 +166,19 @@ public partial class GameBootstraper : Node
 		};
         button.Pressed += () => interactionMachine.Process("makeBatch");
 		menu.AddOptionButton(button);
+        #endregion
 
-        // Init functions
+        #region "Finish inits"
         gameWorldController.interactionMachine = interactionMachine;
         gameWorldController.Initialize();
 
         gameWorldMachine.Initialize();
 
-        //progressionMachine.inRoundMenu = inRoundCanvas;
-        //progressionMachine.postRoundMenu = postRoundCanvas;
         progressionMachine.gameWorldMachine = gameWorldMachine;
         progressionMachine.uiController = uiController;
         progressionMachine.NewRound();
-	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+        interactionMachine.gwText = gameWorldText;
+        #endregion
 	}
 }

@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Ui/EventScreen.cs" id="1_3s22a"]
+[ext_resource type="Script" path="res://Ui/UiList.cs" id="2_tksku"]
+
+[node name="_CanvasLayer_8" type="CanvasLayer"]
+
+[node name="UiContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="TopContainer" type="VBoxContainer" parent="UiContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RoundProgress" type="ProgressBar" parent="UiContainer/TopContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+value = 49.0
+show_percentage = false
+
+[node name="TopPadding" type="Control" parent="UiContainer/TopContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EventMenu" type="Control" parent="UiContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("1_3s22a")
+
+[node name="EventScreen" type="VBoxContainer" parent="UiContainer/EventMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleText" type="RichTextLabel" parent="UiContainer/EventMenu/EventScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Welcome!"
+
+[node name="DescriptionText" type="RichTextLabel" parent="UiContainer/EventMenu/EventScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Resources: 
+Batch: -16 
+Money: 160 
+Sausages: 100 
+
+"
+
+[node name="ButtonsList" type="Control" parent="UiContainer/EventMenu/EventScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_tksku")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UiContainer/EventMenu/EventScreen/ButtonsList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ListContainer" type="VBoxContainer" parent="UiContainer/EventMenu/EventScreen/ButtonsList/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="_Button_15" type="Button" parent="UiContainer/EventMenu/EventScreen/ButtonsList/ScrollContainer/ListContainer"]
+layout_mode = 2
+text = "Make Batch"

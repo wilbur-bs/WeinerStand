@@ -18,5 +18,14 @@ public partial class Customer : Node3D
 	public override void _Process(double delta)
 	{
 		Position = Position + (MovementVector * Speed * (float)delta);
+		CleanSelf();
+	}
+
+	private void CleanSelf()
+	{
+		if(Position.X < -20)
+		{
+			QueueFree();
+		}
 	}
 }

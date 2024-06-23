@@ -5,8 +5,11 @@ public partial class InteractionMachine : Node
 {
 	public GameState State;
     public Timer freshnessTimer;
+    public GameWorldText gwText;
     
     private Random random;
+
+    private string interactionMessage;
 
     public override void _Ready()
     {
@@ -38,29 +41,47 @@ public partial class InteractionMachine : Node
 
     private void SaleInteraction()
     {
-        int salePrice = 10;
-        if(State.State.ContainsKey("Bread"))
+        interactionMessage = "";
+
+        if(State.State["Batch"].ToInt() >= 1)
         {
-            int usedBread = 1;
-            while(!ChanceRoll(8))
+            interactionMessage = "Hotdog sold!\n";
+            int salePrice = 10;
+            if(State.State.ContainsKey("Bread"))
             {
-                usedBread += 1;
+                int usedBread = 1;
+                while(!ChanceRoll(8))
+                {
+                    usedBread += 1;
+                }
+                State.State["Bread"] = (State.State["Bread"].ToInt() - usedBread).ToString();
+                
+                interactionMessage += "-" + usedBread + " bread\n";
+                GD.Print("Used bread " + usedBread);
             }
-            State.State["Bread"] = (State.State["Bread"].ToInt() - usedBread).ToString();
-            GD.Print("Used bread " + usedBread);
+
+            if(State.State.ContainsKey("Freshness"))
+            {
+                int saleFreshness = (int)freshnessTimer.TimeLeft/2;
+                salePrice += saleFreshness;
+                interactionMessage += "+" + saleFreshness + " in tips\n";
+                GD.Print("Sale freshness " + saleFreshness);
+            }
+
+            State.State["Money"] = (State.State["Money"].ToInt() + salePrice).ToString();
+            GD.Print("Sale price " + salePrice);
+
+            State.State["Batch"] = (State.State["Batch"].ToInt() - 1).ToString();
+
+            interactionMessage += "+" + salePrice + " final sale";
         }
 
-        if(State.State.ContainsKey("Freshness"))
+        else
         {
-            int saleFreshness = (int)freshnessTimer.TimeLeft/2;
-            salePrice += saleFreshness;
-            GD.Print("Sale freshness " + saleFreshness);
+            interactionMessage = "Nothing to sell :(";
         }
 
-        State.State["Money"] = (State.State["Money"].ToInt() + salePrice).ToString();
-        GD.Print("Sale price " + salePrice);
-
-        State.State["Batch"] = (State.State["Batch"].ToInt() - 1).ToString();
+        gwText.SetMessage(interactionMessage);
     }
 
     private bool ChanceRoll(int successChance)
