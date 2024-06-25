@@ -29,9 +29,15 @@ public partial class InteractionMachine : Node
         switch(command[0])
         {
             case "makeBatch":
-                State.State["Sausages"] = (State.State["Sausages"].ToInt() - 10).ToString();
-                State.State["Batch"] = "10";
-                freshnessTimer.Start();
+                if(State.State["Sausages"].ToInt() >= 10)
+                {
+                    State.State["Sausages"] = (State.State["Sausages"].ToInt() - 10).ToString();
+                    State.State["Batch"] = "10";
+                    freshnessTimer.Start();
+                }
+                else{
+                    gwText.SetMessage("Not enough sausages \nfor batch");
+                }
                 break;
             case "sale":
                 SaleInteraction();
@@ -82,7 +88,7 @@ public partial class InteractionMachine : Node
 
             State.State["Batch"] = (State.State["Batch"].ToInt() - 1).ToString();
 
-            interactionMessage += "+" + salePrice + " final sale";
+            interactionMessage += "+" + salePrice + " money";
         }
 
         else

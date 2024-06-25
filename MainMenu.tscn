@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://clq0j1nl6c7ys"]
+
+[ext_resource type="Script" path="res://MainMenu.cs" id="1_4lxep"]
+[ext_resource type="Theme" uid="uid://c84nnr6sipcor" path="res://Game.theme" id="2_wirkc"]
+
+[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("startButton", "mainMenu")]
+script = ExtResource("1_4lxep")
+startButton = NodePath("CanvasLayer/Button")
+mainMenu = NodePath("CanvasLayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.164706, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/ColorRect"]
+layout_mode = 1
+offset_left = 28.0
+offset_top = 20.0
+offset_right = 335.0
+offset_bottom = 96.0
+theme = ExtResource("2_wirkc")
+theme_override_font_sizes/font_size = 45
+text = "Hotdog Stand"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/ColorRect"]
+layout_mode = 1
+offset_left = 28.0
+offset_top = 105.0
+offset_right = 170.0
+offset_bottom = 150.0
+theme = ExtResource("2_wirkc")
+text = "by bearsage"
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = -56.0
+offset_right = 171.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme = ExtResource("2_wirkc")
+text = "Start Game!"

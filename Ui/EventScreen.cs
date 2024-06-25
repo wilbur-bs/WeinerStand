@@ -4,8 +4,8 @@ using System;
 public partial class EventScreen : Control
 {
 	private VBoxContainer newContainer;
-	private RichTextLabel titleText;
-	private RichTextLabel descriptionText;
+	private Label titleText;
+	private Label descriptionText;
 	private VBoxContainer optionsContainer;
 	private UiList buttonList;
 
@@ -23,9 +23,9 @@ public partial class EventScreen : Control
 		// add title text
 		titleText = new(){
 			AnchorsPreset = 1,
-			SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
 			Name = "TitleText",
-			Text = "Title" 
+			Text = "Title",
+			HorizontalAlignment = HorizontalAlignment.Center
 		};
 		newContainer.AddChild(titleText);
 
@@ -34,7 +34,8 @@ public partial class EventScreen : Control
 			AnchorsPreset = 1,
 			SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
 			Name = "DescriptionText",
-			Text = "Description" 
+			Text = "Description",
+			AutowrapMode =  TextServer.AutowrapMode.Word
 		};
 		newContainer.AddChild(descriptionText);
 

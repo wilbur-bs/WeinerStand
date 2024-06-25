@@ -60,6 +60,7 @@ public partial class UiController : Node
 			Button button = new() {
 				Text = "Aw man"
 			};
+			button.Pressed += () => ((GameBootstraper)GetParent()).GameEnded();
 			PostRoundScreen.AddOptionButton(button);
 		}
 		else if(currentDialogueQuery != "default_0")

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class ProgressionMachine : Node
 {
 	[Export]
-	public float RoundTime = 15;
+	public float RoundTime = 30;
 
 	public Timer roundTimer;
 	public GameState gameState;

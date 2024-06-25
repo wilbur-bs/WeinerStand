@@ -1,59 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://dog2kojmq5tg0"]
+[gd_scene load_steps=4 format=3 uid="uid://dog2kojmq5tg0"]
 
-[ext_resource type="Script" path="res://GameBootstraper.cs" id="1_bfo11"]
-[ext_resource type="PackedScene" uid="uid://dwwwljyuq0ti4" path="res://GameWorld/FoodStand/FoodStand.tscn" id="4_5oawb"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e03c1"]
-
-[sub_resource type="FontFile" id="FontFile_u6nx4"]
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-
-[sub_resource type="Theme" id="Theme_ep410"]
-default_font = SubResource("FontFile_u6nx4")
-Button/styles/blue = SubResource("StyleBoxTexture_e03c1")
-
-[sub_resource type="FontFile" id="FontFile_uum2l"]
-cache/0/50/0/ascent = 0.0
-cache/0/50/0/descent = 0.0
-cache/0/50/0/underline_position = 0.0
-cache/0/50/0/underline_thickness = 0.0
-cache/0/50/0/scale = 1.0
-cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
-cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/50/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-
-[sub_resource type="LabelSettings" id="LabelSettings_0rpsu"]
-font = SubResource("FontFile_uum2l")
-font_size = 50
-outline_color = Color(1, 0, 0, 1)
-shadow_color = Color(0, 1, 1, 0)
+[ext_resource type="Script" path="res://GameBootstraper.cs" id="1_uro8j"]
+[ext_resource type="Theme" uid="uid://c84nnr6sipcor" path="res://Game.theme" id="2_3wxb6"]
+[ext_resource type="PackedScene" uid="uid://dwwwljyuq0ti4" path="res://GameWorld/FoodStand/FoodStand.tscn" id="2_ltq2c"]
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("gameWorldController")]
-script = ExtResource("1_bfo11")
+script = ExtResource("1_uro8j")
 gameWorldController = NodePath("FoodStand")
 
 [node name="DevDebugCanvas" type="CanvasLayer" parent="."]
 visible = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DevDebugCanvas"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+theme = ExtResource("2_3wxb6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DevDebugCanvas/VBoxContainer"]
 layout_mode = 2
@@ -77,28 +42,30 @@ size_flags_vertical = 3
 [node name="RichTextLabel" type="RichTextLabel" parent="DevDebugCanvas/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("2_3wxb6")
 text = "[b]bold[i]bold italic[/i][/b][i]italic[/i]"
+
+[node name="Label" type="Label" parent="DevDebugCanvas/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_3wxb6")
+text = "label"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Button" type="Button" parent="DevDebugCanvas/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
+theme = ExtResource("2_3wxb6")
 text = "snakes"
 
 [node name="Button" type="Button" parent="DevDebugCanvas"]
+visible = false
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "button"
 
-[node name="Label" type="Label" parent="DevDebugCanvas"]
-anchors_preset = -1
-anchor_right = 0.5
-anchor_bottom = 1.0
-theme = SubResource("Theme_ep410")
-text = "label"
-label_settings = SubResource("LabelSettings_0rpsu")
-
-[node name="FoodStand" parent="." instance=ExtResource("4_5oawb")]
+[node name="FoodStand" parent="." instance=ExtResource("2_ltq2c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
 
 [node name="LightsCamera" type="Node3D" parent="."]

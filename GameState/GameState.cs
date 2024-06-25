@@ -13,7 +13,7 @@ public partial class GameState : Node
 		State = new Dictionary<string, string>
         {
 			{ "Batch", "0"},
-            { "Money", "50" },
+            { "Money", "200" },
 			{ "Sausages", "40" },
         };
 

@@ -6,6 +6,9 @@ public partial class GameBootstraper : Node
     [Export]
     public GameWorldController gameWorldController;
 
+    [Signal]
+    public delegate void GameEndEventHandler();
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -45,15 +48,6 @@ public partial class GameBootstraper : Node
         #endregion
 
         #region "Game World"
-        /*
-        Camera3D camera = new Camera3D();
-        AddChild(camera);
-        camera.Position = new Vector3(0,0,15);
-
-        DirectionalLight3D light = new DirectionalLight3D();
-        AddChild(light);
-        light.Position = new Vector3(0,12,15);
-        */
         GameWorldMachine gameWorldMachine = new GameWorldMachine();
         AddChild(gameWorldMachine);
 
@@ -115,10 +109,11 @@ public partial class GameBootstraper : Node
             LayoutMode = 1,
 			AnchorsPreset = 15,
             SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
-			Name = "EventMenu"
+			Name = "EventMenu",
+            Theme = (Theme)GD.Load("res://Game.theme")
         };
 		uiContainer.AddChild(menu);
-        menu.SetTitleText("Welcome!");
+        menu.SetTitleText("Make sure you have hotdogs in your batch!");
 
         // Post-Round Ui
         CanvasLayer postRoundCanvas = new CanvasLayer();
@@ -132,7 +127,8 @@ public partial class GameBootstraper : Node
             AnchorRight = 1f,
             AnchorTop = 0f,
             AnchorBottom = 1f,
-			Name = "PostMenu"
+			Name = "PostMenu",
+            Theme = (Theme)GD.Load("res://Game.theme")
         };
         postRoundCanvas.AddChild(postMenu);
         postMenu.SetTitleText("Welcome to Post!");
@@ -172,4 +168,12 @@ public partial class GameBootstraper : Node
         interactionMachine.gwText = gameWorldText;
         #endregion
 	}
+
+
+    public void GameEnded()
+    {  
+        EmitSignal(SignalName.GameEnd);
+    }
+
+
 }
