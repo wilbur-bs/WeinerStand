@@ -32,7 +32,7 @@ public partial class EventScreen : Control
 		// add description text
 		descriptionText = new(){
 			AnchorsPreset = 1,
-			SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
+			//SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
 			Name = "DescriptionText",
 			Text = "Description",
 			AutowrapMode =  TextServer.AutowrapMode.Word

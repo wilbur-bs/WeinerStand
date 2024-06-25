@@ -77,12 +77,14 @@ public partial class ProgressionMachine : Node
 			resourceSet1.Remove(nextResource);
 			return nextResource;
 		}
+		/*
 		else if(resourceSet2.Count > 0)
 		{
 			nextResource = resourceSet2[random.Next(resourceSet2.Count)];
 			resourceSet2.Remove(nextResource);
 			return nextResource;
 		}
+		*/
 		else
 		{
 			return "";
@@ -94,11 +96,12 @@ public partial class ProgressionMachine : Node
 		switch(newRound)
         {
 			case "bread":
-				gameState.State.Add("Bread", "100");
+				gameState.State.Add("Bread", "50");
                 break;
 			case "freshness":
 				gameState.State.Add("Freshness", "0");
                 break;
+			/*
 			case "cleanliness":
 				gameState.State.Add("Cleanliness", "100");
                 break;
@@ -108,6 +111,7 @@ public partial class ProgressionMachine : Node
 			case "propane":
 				gameState.State.Add("Propane", "100");
 				break;
+			*/
 			default:
 				break;
 		}

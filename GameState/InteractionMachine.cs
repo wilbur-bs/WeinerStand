@@ -85,9 +85,8 @@ public partial class InteractionMachine : Node
             }
 
             State.State["Money"] = (State.State["Money"].ToInt() + salePrice).ToString();
-
             State.State["Batch"] = (State.State["Batch"].ToInt() - 1).ToString();
-
+            State.State["Hotdogs Sold"] = (State.State["Hotdogs Sold"].ToInt() + 1).ToString();
             interactionMessage += "+" + salePrice + " money";
         }
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dwwwljyuq0ti4"]
 
 [ext_resource type="Script" path="res://GameWorld/GameWorldController.cs" id="1_60dmh"]
-[ext_resource type="PackedScene" uid="uid://tvuj8rhose30" path="res://3dObjects/sphere.tscn" id="2_pkt0k"]
+[ext_resource type="PackedScene" uid="uid://cu47ws7qlnf6r" path="res://3dObjects/food_cart.glb" id="2_memtt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l50h6"]
 size = Vector3(1.5, 1.5, 1.5)
@@ -15,5 +15,5 @@ area = NodePath("Area3D")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_l50h6")
 
-[node name="Sphere" parent="." instance=ExtResource("2_pkt0k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="food_cart" parent="." instance=ExtResource("2_memtt")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.37176, 0, -1.83742)

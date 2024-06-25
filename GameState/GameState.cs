@@ -15,6 +15,7 @@ public partial class GameState : Node
 			{ "Batch", "0"},
             { "Money", "200" },
 			{ "Sausages", "40" },
+			{ "Hotdogs Sold", "0"}
         };
 
 		GD.Print(GetStateString());

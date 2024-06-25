@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dog2kojmq5tg0"]
+[gd_scene load_steps=11 format=3 uid="uid://dog2kojmq5tg0"]
 
 [ext_resource type="Script" path="res://GameBootstraper.cs" id="1_uro8j"]
 [ext_resource type="Theme" uid="uid://c84nnr6sipcor" path="res://Game.theme" id="2_3wxb6"]
 [ext_resource type="PackedScene" uid="uid://dwwwljyuq0ti4" path="res://GameWorld/FoodStand/FoodStand.tscn" id="2_ltq2c"]
+[ext_resource type="PackedScene" uid="uid://dm73n3avabwc4" path="res://3dObjects/person1.glb" id="4_bcb6q"]
+[ext_resource type="PackedScene" uid="uid://dscjqy7m8d1df" path="res://3dObjects/lake.glb" id="4_joqx4"]
+[ext_resource type="PackedScene" uid="uid://d3wguknve84pj" path="res://3dObjects/cylinder.tscn" id="4_xyiud"]
+[ext_resource type="PackedScene" uid="uid://c531hi5wurlda" path="res://3dObjects/tree1.glb" id="6_o4wvp"]
+[ext_resource type="PackedScene" uid="uid://bwoi1pd4u2jal" path="res://3dObjects/tree2.glb" id="7_c1md7"]
+[ext_resource type="PackedScene" uid="uid://b2x6lnythgi8i" path="res://3dObjects/building1_floor.glb" id="9_apyld"]
+
+[sub_resource type="Environment" id="Environment_h6aol"]
+background_mode = 1
+background_color = Color(0.756863, 0.835294, 1, 1)
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("gameWorldController")]
 script = ExtResource("1_uro8j")
@@ -66,16 +76,310 @@ anchor_bottom = 1.0
 text = "button"
 
 [node name="FoodStand" parent="." instance=ExtResource("2_ltq2c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -0.0915095, 0)
+
+[node name="person1" parent="FoodStand" instance=ExtResource("4_bcb6q")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.283181, -0.648097, -2.92432)
 
 [node name="LightsCamera" type="Node3D" parent="."]
 
 [node name="CameraMain" type="Camera3D" parent="LightsCamera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 25)
+transform = Transform3D(1, 0, 0, 0, 0.999048, 0.0436194, 0, -0.0436194, 0.999048, 0, 0.5, 22)
 keep_aspect = 0
+environment = SubResource("Environment_h6aol")
 
 [node name="TopLight" type="DirectionalLight3D" parent="LightsCamera"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.969445, 0.245307, 0, -0.245307, 0.969445, -0.00947571, 13.0621, 0.400467)
 
 [node name="ForwardLight" type="DirectionalLight3D" parent="LightsCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.10613, 0)
 light_energy = 0.5
+
+[node name="Backdrop" type="Node3D" parent="."]
+
+[node name="Cylinder" parent="Backdrop" instance=ExtResource("4_xyiud")]
+transform = Transform3D(-2.18557e-07, -100, 0, 5, -4.37114e-06, 0, 0, 0, 50, 0, -3.13289, -17.7069)
+
+[node name="Cylinder2" parent="Backdrop" instance=ExtResource("4_xyiud")]
+transform = Transform3D(-1.09278e-06, -300, 0, 25, -1.31134e-05, 0, 0, 0, 50, 0, -5.19002, -200.78)
+
+[node name="Cylinder3" parent="Backdrop" instance=ExtResource("4_xyiud")]
+transform = Transform3D(-2.18557e-07, -100, 0, 5, -4.37114e-06, 0, 0, 0, 50, 0, -7.97533, -17.7069)
+
+[node name="lake" parent="Backdrop" instance=ExtResource("4_joqx4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.36844, -102.64)
+
+[node name="trees" type="Node3D" parent="Backdrop"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.28421, 0)
+
+[node name="tree1" parent="Backdrop/trees" instance=ExtResource("6_o4wvp")]
+transform = Transform3D(-0.134522, 0, 0.990911, 0, 1, 0, -0.990911, 0, -0.134522, 12.2668, 0, -15.4516)
+
+[node name="tree2" parent="Backdrop/trees" instance=ExtResource("6_o4wvp")]
+transform = Transform3D(0.766684, 0, -0.642025, 0, 1, 0, 0.642025, 0, 0.766684, -42.6827, 0, -14.2758)
+
+[node name="tree3" parent="Backdrop/trees" instance=ExtResource("6_o4wvp")]
+transform = Transform3D(0.712332, 0, -0.701842, 0, 1, 0, 0.701842, 0, 0.712332, -7.84135, 0, -16.5321)
+
+[node name="tree4" parent="Backdrop/trees" instance=ExtResource("6_o4wvp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15.6051)
+
+[node name="tree5" parent="Backdrop/trees" instance=ExtResource("7_c1md7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.8691, 0, -15.5346)
+
+[node name="tree6" parent="Backdrop/trees" instance=ExtResource("7_c1md7")]
+transform = Transform3D(0.254231, 0, -0.967144, 0, 1, 0, 0.967144, 0, 0.254231, -28.565, 0, -14.0611)
+
+[node name="tree7" parent="Backdrop/trees" instance=ExtResource("7_c1md7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25575, 0, -21.1949)
+
+[node name="tree8" parent="Backdrop/trees" instance=ExtResource("7_c1md7")]
+transform = Transform3D(0.859013, 0, -0.511953, 0, 1, 0, 0.511953, 0, 0.859013, 6.60073, 0, -15.7403)
+
+[node name="tree9" parent="Backdrop/trees" instance=ExtResource("6_o4wvp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.8024, 0, -17.2425)
+
+[node name="tree10" parent="Backdrop/trees" instance=ExtResource("7_c1md7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.423, -0.897844, -22.7534)
+
+[node name="tree11" parent="Backdrop/trees" instance=ExtResource("7_c1md7")]
+transform = Transform3D(0.957541, 0, -0.288297, 0, 1, 0, 0.288297, 0, 0.957541, 18.7084, -3.07987, -15.5035)
+
+[node name="tree12" parent="Backdrop/trees" instance=ExtResource("6_o4wvp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.1281, 1.14378, -20.6994)
+
+[node name="Buildings" type="Node3D" parent="Backdrop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23.0052)
+
+[node name="Building1" type="Node3D" parent="Backdrop/Buildings"]
+
+[node name="building1_floor" parent="Backdrop/Buildings/Building1" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5529, -174.056)
+
+[node name="building1_floor2" parent="Backdrop/Buildings/Building1" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.859, -174.049)
+
+[node name="building1_floor3" parent="Backdrop/Buildings/Building1" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.593, -174.049)
+
+[node name="building1_floor4" parent="Backdrop/Buildings/Building1" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.286, -174.056)
+
+[node name="building1_floor5" parent="Backdrop/Buildings/Building1" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.0265, -174.049)
+
+[node name="building1_floor6" parent="Backdrop/Buildings/Building1" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7195, -174.056)
+
+[node name="Building2" type="Node3D" parent="Backdrop/Buildings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.1237, 0, 0)
+
+[node name="building1_floor" parent="Backdrop/Buildings/Building2" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5529, -174.056)
+
+[node name="building1_floor2" parent="Backdrop/Buildings/Building2" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.859, -174.049)
+
+[node name="building1_floor3" parent="Backdrop/Buildings/Building2" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.593, -174.049)
+
+[node name="building1_floor4" parent="Backdrop/Buildings/Building2" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.286, -174.056)
+
+[node name="building1_floor5" parent="Backdrop/Buildings/Building2" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.0265, -174.049)
+
+[node name="building1_floor6" parent="Backdrop/Buildings/Building2" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7195, -174.056)
+
+[node name="building1_floor7" parent="Backdrop/Buildings/Building2" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 52.5086, -174.049)
+
+[node name="building1_floor8" parent="Backdrop/Buildings/Building2" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.2016, -174.056)
+
+[node name="building1_floor9" parent="Backdrop/Buildings/Building2" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 65.0733, -174.049)
+
+[node name="building1_floor10" parent="Backdrop/Buildings/Building2" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 58.7663, -174.056)
+
+[node name="Building3" type="Node3D" parent="Backdrop/Buildings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.8971, 3.05176e-05, -0.04953)
+
+[node name="building1_floor" parent="Backdrop/Buildings/Building3" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5529, -174.056)
+
+[node name="building1_floor2" parent="Backdrop/Buildings/Building3" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.859, -174.049)
+
+[node name="building1_floor3" parent="Backdrop/Buildings/Building3" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.593, -174.049)
+
+[node name="building1_floor4" parent="Backdrop/Buildings/Building3" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.286, -174.056)
+
+[node name="building1_floor5" parent="Backdrop/Buildings/Building3" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.0265, -174.049)
+
+[node name="building1_floor6" parent="Backdrop/Buildings/Building3" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7195, -174.056)
+
+[node name="building1_floor7" parent="Backdrop/Buildings/Building3" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 52.5086, -174.049)
+
+[node name="building1_floor8" parent="Backdrop/Buildings/Building3" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.2016, -174.056)
+
+[node name="Building4" type="Node3D" parent="Backdrop/Buildings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -138.661, 3.05176e-05, -0.04953)
+
+[node name="building1_floor" parent="Backdrop/Buildings/Building4" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5529, -174.056)
+
+[node name="building1_floor2" parent="Backdrop/Buildings/Building4" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.859, -174.049)
+
+[node name="building1_floor3" parent="Backdrop/Buildings/Building4" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.593, -174.049)
+
+[node name="building1_floor4" parent="Backdrop/Buildings/Building4" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.286, -174.056)
+
+[node name="building1_floor5" parent="Backdrop/Buildings/Building4" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.0265, -174.049)
+
+[node name="building1_floor6" parent="Backdrop/Buildings/Building4" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7195, -174.056)
+
+[node name="building1_floor7" parent="Backdrop/Buildings/Building4" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 52.5086, -174.049)
+
+[node name="building1_floor8" parent="Backdrop/Buildings/Building4" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.2016, -174.056)
+
+[node name="building1_floor9" parent="Backdrop/Buildings/Building4" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 65.0733, -174.049)
+
+[node name="building1_floor10" parent="Backdrop/Buildings/Building4" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 58.7663, -174.056)
+
+[node name="Building5" type="Node3D" parent="Backdrop/Buildings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -111.448, 3.05176e-05, -0.04953)
+
+[node name="building1_floor" parent="Backdrop/Buildings/Building5" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5529, -174.056)
+
+[node name="building1_floor2" parent="Backdrop/Buildings/Building5" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.859, -174.049)
+
+[node name="building1_floor3" parent="Backdrop/Buildings/Building5" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.593, -174.049)
+
+[node name="building1_floor4" parent="Backdrop/Buildings/Building5" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.286, -174.056)
+
+[node name="building1_floor5" parent="Backdrop/Buildings/Building5" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.0265, -174.049)
+
+[node name="building1_floor6" parent="Backdrop/Buildings/Building5" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7195, -174.056)
+
+[node name="building1_floor7" parent="Backdrop/Buildings/Building5" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 52.5086, -174.049)
+
+[node name="building1_floor8" parent="Backdrop/Buildings/Building5" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.2016, -174.056)
+
+[node name="Building6" type="Node3D" parent="Backdrop/Buildings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6965, 3.05176e-05, -0.04953)
+
+[node name="building1_floor" parent="Backdrop/Buildings/Building6" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5529, -174.056)
+
+[node name="building1_floor2" parent="Backdrop/Buildings/Building6" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.859, -174.049)
+
+[node name="building1_floor3" parent="Backdrop/Buildings/Building6" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.593, -174.049)
+
+[node name="building1_floor4" parent="Backdrop/Buildings/Building6" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.286, -174.056)
+
+[node name="building1_floor5" parent="Backdrop/Buildings/Building6" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.0265, -174.049)
+
+[node name="building1_floor6" parent="Backdrop/Buildings/Building6" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7195, -174.056)
+
+[node name="building1_floor7" parent="Backdrop/Buildings/Building6" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 52.5086, -174.049)
+
+[node name="building1_floor8" parent="Backdrop/Buildings/Building6" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.2016, -174.056)
+
+[node name="building1_floor9" parent="Backdrop/Buildings/Building6" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 65.0733, -174.049)
+
+[node name="building1_floor10" parent="Backdrop/Buildings/Building6" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 58.7663, -174.056)
+
+[node name="Building7" type="Node3D" parent="Backdrop/Buildings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104.91, 3.05176e-05, -0.04953)
+
+[node name="building1_floor" parent="Backdrop/Buildings/Building7" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5529, -174.056)
+
+[node name="building1_floor2" parent="Backdrop/Buildings/Building7" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.859, -174.049)
+
+[node name="building1_floor3" parent="Backdrop/Buildings/Building7" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.593, -174.049)
+
+[node name="building1_floor4" parent="Backdrop/Buildings/Building7" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.286, -174.056)
+
+[node name="building1_floor5" parent="Backdrop/Buildings/Building7" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.0265, -174.049)
+
+[node name="building1_floor6" parent="Backdrop/Buildings/Building7" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7195, -174.056)
+
+[node name="building1_floor7" parent="Backdrop/Buildings/Building7" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 52.5086, -174.049)
+
+[node name="building1_floor8" parent="Backdrop/Buildings/Building7" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.2016, -174.056)
+
+[node name="Building8" type="Node3D" parent="Backdrop/Buildings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132.428, 3.05176e-05, 15.5741)
+
+[node name="building1_floor" parent="Backdrop/Buildings/Building8" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5529, -174.056)
+
+[node name="building1_floor2" parent="Backdrop/Buildings/Building8" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.859, -174.049)
+
+[node name="building1_floor3" parent="Backdrop/Buildings/Building8" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.593, -174.049)
+
+[node name="building1_floor4" parent="Backdrop/Buildings/Building8" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.286, -174.056)
+
+[node name="building1_floor5" parent="Backdrop/Buildings/Building8" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.0265, -174.049)
+
+[node name="building1_floor6" parent="Backdrop/Buildings/Building8" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7195, -174.056)
+
+[node name="building1_floor7" parent="Backdrop/Buildings/Building8" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 52.5086, -174.049)
+
+[node name="building1_floor8" parent="Backdrop/Buildings/Building8" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.2016, -174.056)
+
+[node name="building1_floor9" parent="Backdrop/Buildings/Building8" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 65.0733, -174.049)
+
+[node name="building1_floor10" parent="Backdrop/Buildings/Building8" instance=ExtResource("9_apyld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 58.7663, -174.056)

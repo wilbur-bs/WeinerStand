@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5d5dle4ae3mv"]
+
+[ext_resource type="PackedScene" uid="uid://dscjqy7m8d1df" path="res://3dObjects/lake.glb" id="1_78cxy"]
+
+[node name="lake" instance=ExtResource("1_78cxy")]
+
+[node name="AnimationPlayer" parent="." index="2"]
+speed_scale = 0.05

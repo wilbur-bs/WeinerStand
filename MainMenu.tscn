@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://clq0j1nl6c7ys"]
+[gd_scene load_steps=5 format=3 uid="uid://clq0j1nl6c7ys"]
 
 [ext_resource type="Script" path="res://MainMenu.cs" id="1_4lxep"]
 [ext_resource type="Theme" uid="uid://c84nnr6sipcor" path="res://Game.theme" id="2_wirkc"]
+[ext_resource type="Texture2D" uid="uid://cr1cvqy0e7qow" path="res://ssj_splash.PNG" id="3_567b6"]
+[ext_resource type="Texture2D" uid="uid://bed356gb3cvw5" path="res://hotdog-stand-logo.png" id="4_ifvwv"]
 
 [node name="MainMenu" type="Node2D" node_paths=PackedStringArray("startButton", "mainMenu")]
 script = ExtResource("1_4lxep")
@@ -39,6 +41,38 @@ offset_right = 170.0
 offset_bottom = 150.0
 theme = ExtResource("2_wirkc")
 text = "by bearsage"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ColorRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -351.0
+offset_top = -175.0
+offset_right = -20.0
+offset_bottom = -21.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_567b6")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/ColorRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -331.0
+offset_top = -424.0
+offset_right = -23.0
+offset_bottom = -188.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_ifvwv")
+expand_mode = 2
 
 [node name="Button" type="Button" parent="CanvasLayer"]
 anchors_preset = -1

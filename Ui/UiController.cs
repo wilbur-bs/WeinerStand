@@ -107,12 +107,16 @@ public partial class UiController : Node
 				.Titles[currentDialogueQuery.Substring(0, currentDialogueQuery.Length-2)];
 
 			currentDialogueString = DialougeMachine.Descriptions[currentDialogueQuery];
+
+			if(currentDialogueQuery == "end_0")
+			{
+				currentDialogueString += "\nTotal hotdogs sold: " + State.State["Hotdogs Sold"] + "\n";
+			}
 		}
 		else
 		{
 			currentDialogueQuery = "default_0";
 			GD.Print("QueryString: " + currentDialogueQuery);
-
 
 			currentTitleString = DialougeMachine
 				.Titles["default"];
@@ -122,6 +126,7 @@ public partial class UiController : Node
 
 		SetPostRoundButtons();
 
+		// Navigate to next dialog text
 		if(currentDialogueQuery != "default_0")
 		{
 			currentDialogueIndex += 1;
