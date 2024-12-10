@@ -11,14 +11,14 @@ public partial class UiController : Node
 	private bool inRound = false;
 
 	// in round menu
-	public EventScreen Menu;
+	public DialogueUi Menu;
 	public Timer RoundTimer;
 	public ProgressBar ProgressBar;
 
 	public CanvasLayer inRoundMenu;
 
 	// post round menu
-	public EventScreen PostRoundScreen;
+	public DialogueUi PostRoundScreen;
 	public CanvasLayer postRoundMenu;
 	private string currentDialogueQuery;
 	private int currentDialogueIndex;
@@ -61,7 +61,7 @@ public partial class UiController : Node
 				Text = "Aw man"
 			};
 			button.Pressed += () => ((GameBootstraper)GetParent()).GameEnded();
-			PostRoundScreen.AddOptionButton(button);
+			PostRoundScreen.AddButton(button);
 		}
 		else if(currentDialogueQuery != "default_0")
 		{
@@ -69,7 +69,7 @@ public partial class UiController : Node
 				Text = "Got it"
 			};
 			button.Pressed += () => NavigateDialogue();
-			PostRoundScreen.AddOptionButton(button);
+			PostRoundScreen.AddButton(button);
 		}
 		else
 		{
@@ -78,7 +78,7 @@ public partial class UiController : Node
 			};
 			button.Pressed += () => interactionMachine.Process("buySausages");
 			button.Pressed += () => RefreshGamestateDialogue();
-			PostRoundScreen.AddOptionButton(button);
+			PostRoundScreen.AddButton(button);
 
 			if(State.State.ContainsKey("Bread"))
 			{
@@ -87,14 +87,14 @@ public partial class UiController : Node
 				};
 				button.Pressed += () => interactionMachine.Process("buyBread");
 				button.Pressed += () => RefreshGamestateDialogue();
-				PostRoundScreen.AddOptionButton(button);
+				PostRoundScreen.AddButton(button);
 			}
 
 			button = new() {
 				Text = "Next Day"
 			};
 			button.Pressed += () => progressionMachine.NewRound();
-			PostRoundScreen.AddOptionButton(button);
+			PostRoundScreen.AddButton(button);
 		}
 	}
 
@@ -150,13 +150,13 @@ public partial class UiController : Node
 	{
 		if(inRound)
 		{
-			Menu.SetDescriptionText("Resources: \n" + State.GetStateString()  + "\n");
+			Menu.SetText("Resources: \n" + State.GetStateString()  + "\n");
 			ProgressBar.Value = 100*(RoundTimer.TimeLeft/RoundTimer.WaitTime);
 		}
 		else
 		{
-			PostRoundScreen.SetTitleText(currentTitleString);
-			PostRoundScreen.SetDescriptionText(currentDialogueString);
+			PostRoundScreen.SetText(currentTitleString);
+			PostRoundScreen.SetText(currentDialogueString);
 		}
 	}
 

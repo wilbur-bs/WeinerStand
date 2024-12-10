@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm415t7ibdxhh"]
+
+[ext_resource type="PackedScene" uid="uid://wsjaal08a3m2" path="res://Ui2/AttributeUi.tscn" id="1_mfmf6"]
+[ext_resource type="PackedScene" uid="uid://cu2jg3jouou8n" path="res://Ui2/DialogueUi.tscn" id="2_7txqb"]
+
+[node name="PostRoundMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AttributeUi" parent="HBoxContainer" instance=ExtResource("1_mfmf6")]
+layout_mode = 2
+
+[node name="DialogueUi" parent="HBoxContainer" instance=ExtResource("2_7txqb")]
+layout_mode = 2

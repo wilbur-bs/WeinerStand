@@ -59,79 +59,8 @@ public partial class GameBootstraper : Node
 
         #region "Ui"
         // In-Round Ui
-        CanvasLayer inRoundCanvas = new CanvasLayer();
-		AddChild(inRoundCanvas);
-
-        VBoxContainer uiContainer = new VBoxContainer()
-        {
-            LayoutMode = 1,
-			AnchorsPreset = 15,
-            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
-			Name = "UiContainer"
-        };
-        inRoundCanvas.AddChild(uiContainer);
-
-
-        // Ui top
-        VBoxContainer topContainer = new VBoxContainer()
-        {
-            LayoutMode = 1,
-			AnchorsPreset = 15,
-            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
-			Name = "TopContainer"
-        };
-        uiContainer.AddChild(topContainer);
-
-        ProgressBar roundBar = new ProgressBar()
-        {
-            LayoutMode = 1,
-			AnchorsPreset = 15,
-            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
-            SizeFlagsStretchRatio = 0.1f,
-            ShowPercentage = false,
-			Name = "RoundProgress"
-        };
-        topContainer.AddChild(roundBar);
-
-        Control topPadding = new Control()
-        {
-            LayoutMode = 1,
-			AnchorsPreset = 15,
-            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
-			Name = "TopPadding"
-        };
-        topContainer.AddChild(topPadding);
-        
-
-        // Ui bottom
-		EventScreen menu = new EventScreen()
-        {
-            LayoutMode = 1,
-			AnchorsPreset = 15,
-            SizeFlagsVertical = Godot.Control.SizeFlags.ExpandFill,
-			Name = "EventMenu",
-            Theme = (Theme)GD.Load("res://Game.theme")
-        };
-		uiContainer.AddChild(menu);
-        menu.SetTitleText("Make sure you have hotdogs in your batch!");
-
-        // Post-Round Ui
-        CanvasLayer postRoundCanvas = new CanvasLayer();
-		AddChild(postRoundCanvas);
-
-        
-        EventScreen postMenu = new EventScreen()
-        {
-            LayoutMode = 1,
-            AnchorLeft = 0.5f,
-            AnchorRight = 1f,
-            AnchorTop = 0f,
-            AnchorBottom = 1f,
-			Name = "PostMenu",
-            Theme = (Theme)GD.Load("res://Game.theme")
-        };
-        postRoundCanvas.AddChild(postMenu);
-        postMenu.SetTitleText("Welcome to Post!");
+        CanvasLayer inRoundCanvas = (CanvasLayer)FindChild("InRoundCanvas");
+        DialogueUi menu = (DialogueUi)FindChild("InGameMenu").FindChild("DialogueUi");
 
         // Ui controller
         UiController uiController = new UiController();
@@ -139,10 +68,10 @@ public partial class GameBootstraper : Node
         uiController.State = gameState;
         uiController.Menu = menu;
         uiController.RoundTimer = roundTimer;
-        uiController.ProgressBar = roundBar;
+        uiController.ProgressBar = (ProgressBar)FindChild("RoundProgressBar");
         uiController.inRoundMenu = inRoundCanvas;
-        uiController.postRoundMenu = postRoundCanvas;
-        uiController.PostRoundScreen = postMenu;
+        uiController.postRoundMenu = (CanvasLayer)FindChild("PostRoundCanvas");
+        uiController.PostRoundScreen = (DialogueUi)FindChild("PostRoundCanvas").FindChild("DialogueUi");
         uiController.DialougeMachine = dialougeMachine;
         uiController.progressionMachine = progressionMachine;
         uiController.interactionMachine = interactionMachine;
@@ -152,7 +81,8 @@ public partial class GameBootstraper : Node
 			Text = "Make Batch"
 		};
         button.Pressed += () => interactionMachine.Process("makeBatch");
-		menu.AddOptionButton(button);
+		menu.ClearButtons();
+        menu.AddButton(button);
         #endregion
 
         #region "Finish inits"
