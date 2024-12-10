@@ -11,8 +11,6 @@ public partial class AttributeUi : Node
 	{
 		uiContainer = (VBoxContainer)FindChild("UiContainer");
 		templateLine = (HBoxContainer)FindChild("TemplateLine");
-		
-		NewLine("Oh", "[center]Boy");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
