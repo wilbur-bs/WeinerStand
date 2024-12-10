@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dog2kojmq5tg0"]
+[gd_scene load_steps=14 format=3 uid="uid://dog2kojmq5tg0"]
 
 [ext_resource type="Script" path="res://GameBootstraper.cs" id="1_uro8j"]
 [ext_resource type="Theme" uid="uid://c84nnr6sipcor" path="res://Game.theme" id="2_3wxb6"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b2x6lnythgi8i" path="res://3dObjects/building1_floor.glb" id="9_apyld"]
 [ext_resource type="PackedScene" uid="uid://cu2jg3jouou8n" path="res://Ui2/DialogueUi.tscn" id="10_gvblr"]
 [ext_resource type="PackedScene" uid="uid://dj1g8p50bdg1l" path="res://Ui2/InGameMenu.tscn" id="10_rujea"]
+[ext_resource type="PackedScene" uid="uid://dm415t7ibdxhh" path="res://Ui2/PostRoundMenu.tscn" id="11_ee3bd"]
 
 [sub_resource type="Environment" id="Environment_h6aol"]
 background_mode = 1
@@ -387,6 +388,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 65.0733, -174.049)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 58.7663, -174.056)
 
 [node name="InRoundCanvas" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InRoundCanvas"]
 anchors_preset = 15
@@ -423,5 +425,10 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="PostRoundMenu" parent="PostRoundCanvas/VBoxContainer" instance=ExtResource("11_ee3bd")]
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="DialogueUi" parent="PostRoundCanvas/VBoxContainer" instance=ExtResource("10_gvblr")]
+visible = false
 layout_mode = 2
